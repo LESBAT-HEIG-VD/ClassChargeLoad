@@ -14,7 +14,8 @@ affectation=['Commerce',
              'Education',
              'Sport',
              'Hospital',
-             'Industry']
+             'Industry',
+             'Sport']
 index_year=2021
 index=pd.date_range(start='1/1/'+ str(index_year), 
                     end='31/12/' + str(index_year) +' 23:00',freq="1h")
@@ -24,7 +25,7 @@ for aff in affectation:
     target_load= aff + '.csv'
     target_save=r"Curves/"+ aff + '.feather'
     try:
-        bld_curve = pd.read_csv(target_load, sep=";")
+        bld_curve = pd.read_csv(target_load, sep=",")
         # bld_curve = pd.read_feather(target)
         bld_curve.to_feather(target_save)
         bld_curve.index=index

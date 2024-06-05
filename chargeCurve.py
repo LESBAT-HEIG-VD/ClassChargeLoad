@@ -31,9 +31,25 @@ class chargeCurve:
                      'Education',
                      'Sport',
                      'Hospital',
-                     'Industry']
+                     'Industries']
+        ref_cons in [158673,
+                     249280,
+                     158772,
+                     114220,
+                     488202,
+                     204771,
+                     204771,
+                     119109]
         """
         self.affectation = affectation
+        self.dict={'Commerce':158673,
+                     'Res_multi':249280,
+                     'Res_ind':158772,
+                     'Administration':114220,
+                     'Education':488202,
+                     'Sport':204771,
+                     'Hospital':204771,
+                     'Industries':119109}
         self.SRE=SRE
         self.annual_cons=annual_consumption
         self.loc=Lausanne
@@ -56,10 +72,11 @@ class chargeCurve:
         try:
             dati = pd.read_feather(r'Curves/'+self.affectation + '.feather')
             dati.index=self.index
-            dati['Load1']=dati['Load1']*self.SRE*self.annual_cons
-            dati['Load2']=dati['Load2']*self.SRE*self.annual_cons
+            
+            dati['Load1']=dati['Load1']*self.SRE*self.annual_cons/self.dict[self.affectation]
+            dati['Load2']=dati['Load2']*self.SRE
             if self.affectation!="Res_multi_Lau":
-                dati['Load3']=dati['Load3']*self.SRE*self.annual_cons
+                dati['Load3']=dati['Load3']*self.SRE
             return dati
         except:
             print(self.affectation + '.feather not found')
@@ -68,9 +85,8 @@ class chargeCurve:
 if __name__ == "__main__":
         """ use import chargeCurve as cc and then use cc.changeCurve()
         """
-        profile = chargeCurve(affectation="Administration",
-                                      annual_consumption=10000,
+        profile = chargeCurve(affectation="Commerce",
+                                      annual_consumption=250000,
                                       SRE=1000,
-                                      central_ECS=True,
                                       Lausanne=False)
         print(profile.DB)
