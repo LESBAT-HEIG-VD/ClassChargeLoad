@@ -9,6 +9,7 @@ import pandas as pd
 
 affectation=['Commerce',
              'Res_multi',
+             'Res_multi_Lau',
              'Res_ind',
              'Administration',
              'Education',

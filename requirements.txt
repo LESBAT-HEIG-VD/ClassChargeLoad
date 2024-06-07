@@ -3,3 +3,8 @@ numpy
 pyarrow
 matplotlib
 spyder-kernels==2.3.*
+#shapely
+#geopandas
+#geojson
+#cartopy
+#matplotlib
