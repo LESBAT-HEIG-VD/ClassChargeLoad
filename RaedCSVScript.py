@@ -15,7 +15,7 @@ affectation=['Commerce',
              'Education',
              'Sport',
              'Hospital',
-             'Industry',
+             'Industries',
              'Sport']
 index_year=2021
 index=pd.date_range(start='1/1/'+ str(index_year), 

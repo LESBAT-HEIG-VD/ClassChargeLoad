@@ -68,10 +68,12 @@ class chargeCurve:
         """
         Method to access the source file 
         For Lausanne=False:
+            affectation: the one it is given
             Load 1: Normal building
             Load 2: Refurbished building
             Load 3: Heavily refurbished building
         For Lausanne=True:
+            affectation: only multifamily building
             Load 1: Normal building
             Load 2: Refurbished building
             Load 3: Heavily refurbished building 
@@ -103,8 +105,14 @@ class chargeCurve:
 if __name__ == "__main__":
         """ use import chargeCurve as cc and then use cc.changeCurve()
         """
-        profile = chargeCurve(affectation="Commerce",
-                                      annual_consumption=250000,
-                                      SRE=1000,
+        
+        profile_Lausanne = chargeCurve(annual_consumption=116000,
+                                      SRE=800,
                                       Lausanne=True)
-        print(profile.DB)
+        profile_Yverdon=chargeCurve(affectation="Industries",
+                         annual_consumption=10000,
+                         SRE=1000,
+                         Lausanne=False,
+                         index_year=2021)
+        print(profile_Lausanne.DB)
+        print(profile_Yverdon.DB)
