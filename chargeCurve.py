@@ -44,15 +44,15 @@ class chargeCurve:
                      119109]
         """
         self.affectation = affectation
-        self.dict={'Commerce':158673,
-                     'Res_multi':249280,
-                     'Res_multi_Lau':116000,
-                     'Res_ind':158772,
-                     'Administration':114220,
-                     'Education':488202,
-                     'Sport':204771,
-                     'Hospital':204771,
-                     'Industries':119109}
+        self.dict={'Commerce':[158763,74730,65835,1400],
+                     'Res_multi':[249280,173253,133593,2500],
+                     'Res_multi_Lau':[127859,42684,32097,800],
+                     'Res_ind':[158772,118880,104033,1000],
+                     'Administration':[114220,65073,46175,1400],
+                     'Education':[488202,215402,146769,5000],
+                     'Sport':[283115,253040,243536,3500],
+                     'Hospital':[204771,108776,89187,2100],
+                     'Industries':[119109,73114,59322,1000]}
         self.SRE=SRE
         self.annual_cons=annual_consumption
         self.loc=Lausanne
@@ -78,25 +78,16 @@ class chargeCurve:
             Load 2: Refurbished building
             Load 3: Heavily refurbished building 
                     with decentralized ECS production
+        Load curves need to be multiplied by SRE to get the kWh 
+        for each year hour
         """
         try:
             dati = pd.read_feather(r'Curves/'+self.affectation + '.feather')
             dati.index=self.index
             
-            dati['Load1']=dati['Load1']*self.SRE*self.annual_cons/self.dict[self.affectation]
-            dati['Load2']=dati['Load2']*self.SRE
-            dati['Load3']=dati['Load3']*self.SRE
-            # if self.affectation!="Res_multi_Lau":
-            #     dati['Load3']=dati['Load3']*self.SRE
-            # else:
-            #     try:
-            #         dati.drop(labels=['Load3',
-            #                       'Ts_o_3', 
-            #                       'Ts_i_3', 
-            #                       'Tp_o_3',
-            #                       'Tp_i_3',],axis=1,inplace=True)
-            #     except:
-            #         pass    
+            dati['Load1']=dati['Load1']*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][0]
+            dati['Load2']=dati['Load2']*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][1]
+            dati['Load3']=dati['Load3']*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][2]
             return dati
         except:
             print(self.affectation + '.feather not found')
