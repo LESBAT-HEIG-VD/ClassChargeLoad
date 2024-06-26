@@ -18,7 +18,7 @@ class chargeCurve:
 
     def __init__(self,
                  affectation="Res_multi",
-                 annual_consumption=10000,
+                 annual_consumption=119109,
                  SRE=1000,
                  Lausanne=False,
                  index_year=2021):
@@ -86,8 +86,8 @@ class chargeCurve:
             dati.index=self.index
             
             dati['Load1']=dati['Load1']*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][0]
-            dati['Load2']=dati['Load2']*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][1]
-            dati['Load3']=dati['Load3']*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][2]
+            dati['Load2']=dati['Load2']#*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][1]
+            dati['Load3']=dati['Load3']#*self.annual_cons/self.SRE*self.dict[self.affectation][3]/self.dict[self.affectation][2]
             return dati
         except:
             print(self.affectation + '.feather not found')
@@ -101,7 +101,7 @@ if __name__ == "__main__":
                                       SRE=800,
                                       Lausanne=True)
         profile_Yverdon=chargeCurve(affectation="Industries",
-                         annual_consumption=10000,
+                         annual_consumption=119109,
                          SRE=1000,
                          Lausanne=False,
                          index_year=2021)
