@@ -1,6 +1,7 @@
 # Ignore .csv files
 
 *.csv
+__pycache__/
 
 
 
